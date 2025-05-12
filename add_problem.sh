@@ -89,7 +89,7 @@ if [[ ! -z "$REVISIT" ]]; then
     REVISIT_FIELD="<details><summary>View</summary>$REVISIT</details>"
 fi
 
-ENTRY="| [$LINK]($LINK) | $TAG | $DIFFICULTY | $TAKEAWAY_FIELD | $REVISIT_FIELD | [Solution](./codes/$FILENAME) |"
+ENTRY="| [Link]($LINK) | $TAG | $DIFFICULTY | $TAKEAWAY_FIELD | $REVISIT_FIELD | [Solution](./codes/$FILENAME) |"
 
 # Update the README
 README_FILE="README.md"
