@@ -7,6 +7,7 @@ A collection of competitive programming problems I've solved along with key lear
 | Problem | Tag/Category | Difficulty | Takeaway | Revisit Note | Code Link |
 |-------------|--------------|------------|----------|--------------|-----------|
 | [Link](https://codeforces.com/contest/2102/problem/D) | Data Structure | Div2D |  | <details><summary>View</summary>Parity dependency with inversion count</details> | [Solution](./codes/solution.cpp) |
+| [Link](https://atcoder.jp/contests/arc087/tasks/arc087_b) | Dynamic Programming | Div2C-ish | <details><summary>View</summary>Multi dimensional problems can be reduced to single dimension if the operations are independent</details> |  | [Solution](./codes/solution.cpp) |
 <!-- PROBLEMS_TABLE_CONTENT -->
 
 **Note:** Click on "View" in the Takeaway or Revisit Note columns to expand the content.
