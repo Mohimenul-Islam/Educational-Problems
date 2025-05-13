@@ -42,3 +42,5 @@ This document explains how to work with this repository effectively.
 - Always work in the `solution.cpp` file in the root directory
 - Run the script when you're ready to save the solution
 - The script will handle file numbering automatically
+- The script now automatically pulls the latest changes before committing to avoid conflicts
+- Git credentials are stored to avoid entering username/password repeatedly

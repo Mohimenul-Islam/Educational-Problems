@@ -12,19 +12,19 @@ FILE="/home/mohimenul/educational/Educational-Problems/solution.cpp"
   # Example: "/home/educational/Educational-Problems/solution.cpp" or "./solution.cpp"
 
 # Problem link (required)
-LINK="https://atcoder.jp/contests/arc087/tasks/arc087_b"  # Example: "https://codeforces.com/problemset/problem/123/A"
+LINK="https://atcoder.jp/contests/arc092/tasks/arc092_a"  # Example: "https://codeforces.com/problemset/problem/123/A"
 
 # Problem category/tag (required)
-TAG="Dynamic Programming"   # Example: "Greedy" or "Dynamic Programming"
+TAG="adhoc"   # Example: "Greedy" or "Dynamic Programming"
 
 # Difficulty level (e.g., Easy, Medium, Hard) (required)
 DIFFICULTY="Div2C-ish"  # Example: "Medium"
 
 # Key takeaway or learning (optional)
-TAKEAWAY="Multi Dimensional problems can be reduced to single dimensions if they or the operations on them are independent."    # Example: "Use priority queue for optimization"
+TAKEAWAY="In set<int, greater<int>>, the upper bound and lower bound functions act reverse. For example, lower bound returns the largest element less that or equal"    # Example: "Use priority queue for optimization"
 
 # Note for revisiting (optional)
-REVISIT="recall the negative value shift"     # Example: "Review time complexity"
+REVISIT="recall the sorting based on x and left to right sweep with set maintainances"     # Example: "Review time complexity"
 
 #=================================================
 # DO NOT EDIT BELOW THIS LINE
@@ -135,6 +135,9 @@ echo "Updated README with new problem entry"
 
 # Git commit and push
 if command -v git &> /dev/null; then
+    echo "Pulling latest changes from GitHub..."
+    git pull
+    
     echo "Committing changes to Git repository..."
     git add "$CODES_DIR/$FILENAME" "$README_FILE"
     git commit -m "Add new problem solution: $TAG - $DIFFICULTY"
