@@ -1,6 +1,6 @@
 # Educational Problems
 
-A collection of competitive programming problems I've solved along with key learnings and observations.
+A collection of competitive programming problems I’ve solved, along with any new takeaways or lessons learned, and reasons I might want to revisit each problem later.
 
 ## Problem Collection
 
