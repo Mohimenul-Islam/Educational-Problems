@@ -12,19 +12,19 @@ FILE="/home/mohimenul/educational/Educational-Problems/solution.cpp"
   # Example: "/home/educational/Educational-Problems/solution.cpp" or "./solution.cpp"
 
 # Problem link (required)
-LINK="https://codeforces.com/contest/2102/problem/D"  # Example: "https://codeforces.com/problemset/problem/123/A"
+LINK="https://atcoder.jp/contests/arc087/tasks/arc087_b"  # Example: "https://codeforces.com/problemset/problem/123/A"
 
 # Problem category/tag (required)
-TAG="Data Structure"   # Example: "Greedy" or "Dynamic Programming"
+TAG="Dynamic Programming"   # Example: "Greedy" or "Dynamic Programming"
 
 # Difficulty level (e.g., Easy, Medium, Hard) (required)
-DIFFICULTY="Div2D"  # Example: "Medium"
+DIFFICULTY="Div2C-ish"  # Example: "Medium"
 
 # Key takeaway or learning (optional)
-TAKEAWAY=""    # Example: "Use priority queue for optimization"
+TAKEAWAY="Multi Dimensional problems can be reduced to single dimensions if they or the operations on them are independent."    # Example: "Use priority queue for optimization"
 
 # Note for revisiting (optional)
-REVISIT="Parity dependency with inversion count"     # Example: "Review time complexity"
+REVISIT="recall the negative value shift"     # Example: "Review time complexity"
 
 #=================================================
 # DO NOT EDIT BELOW THIS LINE
@@ -90,15 +90,6 @@ NEXT_NUM=$((HIGHEST_NUM + 1))
 
 # Create the new filename
 FILENAME="solution${NEXT_NUM}.${EXT}"
-    elif [[ "$FILE_TYPE" == *"text/x-python"* ]]; then
-        EXT="py"
-    elif [[ "$FILE_TYPE" == *"text/x-java"* ]]; then
-        EXT="java"
-    fi
-else
-    # Extract extension from original file
-    EXT="${FILENAME##*.}"
-fi
 
 # Copy the solution file to the codes directory with numbered name
 cp "$FILE" "$CODES_DIR/$FILENAME"
