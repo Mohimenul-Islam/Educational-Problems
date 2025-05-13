@@ -44,36 +44,68 @@ if [[ ! -f "$FILE" ]]; then
     exit 1
 fi
 
-# Extract filename
+# Extract base filename
 FILENAME=$(basename "$FILE")
 
-# Make sure the file has a proper code extension
+# Determine the extension of the current file
 if [[ "$FILENAME" != *"."* ]]; then
     # Detect file type and add appropriate extension
     FILE_TYPE=$(file -b --mime-type "$FILE")
+    EXT="cpp" # Default extension
     if [[ "$FILE_TYPE" == *"text/x-c"* ]]; then
-        NEW_FILENAME="${FILENAME}.cpp"
+        EXT="cpp"
     elif [[ "$FILE_TYPE" == *"text/x-python"* ]]; then
-        NEW_FILENAME="${FILENAME}.py"
+        EXT="py"
     elif [[ "$FILE_TYPE" == *"text/x-java"* ]]; then
-        NEW_FILENAME="${FILENAME}.java"
-    else
-        # Default to .txt if can't determine
-        NEW_FILENAME="${FILENAME}.cpp"
+        EXT="java"
     fi
-    FILENAME="$NEW_FILENAME"
+else
+    # Extract extension from original file
+    EXT="${FILENAME##*.}"
 fi
 
-# Create the codes directory if it doesn't exist
+# Find the highest solution number in the codes directory
 CODES_DIR="codes"
 mkdir -p "$CODES_DIR"
 
-# Copy the solution file to the codes directory with proper extension
+# Get the highest number from existing solution files
+HIGHEST_NUM=0
+for f in "$CODES_DIR"/solution*.${EXT}; do
+    if [ -f "$f" ]; then
+        # Extract the number from filename (solution<NUM>.ext)
+        NUM=$(basename "$f" | sed -E "s/solution([0-9]*)\.$EXT/\1/")
+        # If no number (just solution.ext), treat as 0
+        if [ -z "$NUM" ]; then
+            NUM=0
+        fi
+        # Update highest number if this one is higher
+        if [ "$NUM" -gt "$HIGHEST_NUM" ]; then
+            HIGHEST_NUM=$NUM
+        fi
+    fi
+done
+
+# Increment the number for the new file
+NEXT_NUM=$((HIGHEST_NUM + 1))
+
+# Create the new filename
+FILENAME="solution${NEXT_NUM}.${EXT}"
+    elif [[ "$FILE_TYPE" == *"text/x-python"* ]]; then
+        EXT="py"
+    elif [[ "$FILE_TYPE" == *"text/x-java"* ]]; then
+        EXT="java"
+    fi
+else
+    # Extract extension from original file
+    EXT="${FILENAME##*.}"
+fi
+
+# Copy the solution file to the codes directory with numbered name
 cp "$FILE" "$CODES_DIR/$FILENAME"
 echo "Copied $FILE to $CODES_DIR/$FILENAME"
 
-# Generate a unique identifier for the problem (timestamp)
-TIMESTAMP=$(date +%Y%m%d%H%M%S)
+# Generate the problem number (simply use the same number as the solution)
+PROBLEM_NUM=$NEXT_NUM
 
 # Create a markdown entry for the README
 TAKEAWAY_FIELD=""
@@ -89,7 +121,7 @@ if [[ ! -z "$REVISIT" ]]; then
     REVISIT_FIELD="<details><summary>View</summary>$REVISIT</details>"
 fi
 
-ENTRY="| [Link]($LINK) | $TAG | $DIFFICULTY | $TAKEAWAY_FIELD | $REVISIT_FIELD | [Solution](./codes/$FILENAME) |"
+ENTRY="| $PROBLEM_NUM | [Link]($LINK) | $TAG | $DIFFICULTY | $TAKEAWAY_FIELD | $REVISIT_FIELD | [Solution](./codes/$FILENAME) |"
 
 # Update the README
 README_FILE="README.md"
