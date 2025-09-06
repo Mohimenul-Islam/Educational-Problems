@@ -6,20 +6,25 @@ This document explains how to work with this repository effectively.
 
 1. **Solve the problem** in `solution.cpp` file in the root directory.
 
-2. **Update parameters** in `add_problem.sh`:
+2. **Run the script** with problem details:
    ```bash
-   # Edit these parameters
-   FILE="/home/mohimenul/educational/Educational-Problems/solution.cpp"
-   LINK="https://problem-link-here.com"
-   TAG="Your Tag Here"
-   DIFFICULTY="Your Difficulty Here" 
-   TAKEAWAY="Optional takeaway"
-   REVISIT="Optional revisit note"
+   ./add_problem.sh "https://problem-link-here.com" "Your Tag" "Difficulty" ["Optional takeaway"] ["Optional revisit note"]
    ```
+   
+   **Parameters:**
+   - `link` - URL to the problem (required)
+   - `tag` - Category/tag like "Greedy", "DP", "Graph" (required)
+   - `difficulty` - Difficulty level like "Div2C", "Easy", "Hard" (required)
+   - `takeaway` - Key learning or insight (optional)
+   - `revisit` - Future review note or error log (optional)
 
-3. **Run the script** to add your solution:
+   **Examples:**
    ```bash
-   ./add_problem.sh
+   # Minimum required parameters
+   ./add_problem.sh "https://codeforces.com/contest/123/problem/A" "Greedy" "Div2C"
+   
+   # With optional takeaway and revisit note
+   ./add_problem.sh "https://atcoder.jp/contests/abc123/tasks/abc123_d" "Dynamic Programming" "Div2D" "Use 2D DP for optimization" "Remember the base case when n=1"
    ```
 
 ## What the Script Does
@@ -40,7 +45,8 @@ This document explains how to work with this repository effectively.
 ## Tips
 
 - Always work in the `solution.cpp` file in the root directory
-- Run the script when you're ready to save the solution
+- Use quotes around parameters that contain spaces
 - The script will handle file numbering automatically
 - The script now automatically pulls the latest changes before committing to avoid conflicts
 - Git credentials are stored to avoid entering username/password repeatedly
+- To see usage help: `./add_problem.sh` (without parameters)
