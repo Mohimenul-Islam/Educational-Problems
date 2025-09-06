@@ -3,56 +3,99 @@
 # Script to add a new problem to the Educational-Problems repository
 # By: Mohimenul
 #
-# Usage: ./add_problem.sh <link> <tag> <difficulty> [takeaway] [revisit]
-# 
-# Parameters:
-#   link       - URL to the problem (required)
-#   tag        - Category/tag of the problem (required)
-#   difficulty - Difficulty level (required)
-#   takeaway   - Key learning or takeaway (optional)
-#   revisit    - Revisit note or error log (optional)
-#
-# Example:
-#   ./add_problem.sh "https://codeforces.com/contest/123/problem/A" "Greedy" "Div2C" "Use sorting for optimization" "Remember edge case with n=1"
+# Interactive script that prompts for problem details one by one
+# Usage: ./add_problem.sh
 
 #=================================================
-# PARSE COMMAND LINE ARGUMENTS
+# INTERACTIVE INPUT COLLECTION
 #=================================================
 
-# Function to display usage
-show_usage() {
-    echo "Usage: $0 <link> <tag> <difficulty> [takeaway] [revisit]"
-    echo ""
-    echo "Parameters:"
-    echo "  link       - URL to the problem (required)"
-    echo "  tag        - Category/tag of the problem (required)"
-    echo "  difficulty - Difficulty level (required)"
-    echo "  takeaway   - Key learning or takeaway (optional)"
-    echo "  revisit    - Revisit note or error log (optional)"
-    echo ""
-    echo "Example:"
-    echo "  $0 \"https://codeforces.com/contest/123/problem/A\" \"Greedy\" \"Div2C\" \"Use sorting for optimization\" \"Remember edge case with n=1\""
-    echo ""
-    echo "Note: Use quotes around parameters that contain spaces"
+echo "==================================="
+echo "Add New Problem to Repository"
+echo "==================================="
+echo ""
+
+# Function to validate URL format (basic check)
+validate_url() {
+    if [[ $1 =~ ^https?:// ]]; then
+        return 0
+    else
+        return 1
+    fi
 }
 
-# Check if at least 3 arguments are provided
-if [ $# -lt 3 ]; then
-    echo "Error: Missing required parameters"
-    echo ""
-    show_usage
-    exit 1
-fi
+# Get problem link (required)
+while true; do
+    echo -n "Enter problem URL: "
+    read LINK
+    if [[ -z "$LINK" ]]; then
+        echo "Error: Problem URL is required!"
+        continue
+    elif ! validate_url "$LINK"; then
+        echo "Error: Please enter a valid URL starting with http:// or https://"
+        continue
+    else
+        break
+    fi
+done
 
-# Assign command line arguments to variables
-LINK="$1"
-TAG="$2"
-DIFFICULTY="$3"
-TAKEAWAY="${4:-}"  # Optional, empty string if not provided
-REVISIT="${5:-}"   # Optional, empty string if not provided
+# Get problem category/tag (required)
+while true; do
+    echo -n "Enter problem category/tag (e.g., Greedy, DP, Graph): "
+    read TAG
+    if [[ -z "$TAG" ]]; then
+        echo "Error: Problem category/tag is required!"
+        continue
+    else
+        break
+    fi
+done
+
+# Get difficulty (required)
+while true; do
+    echo -n "Enter difficulty level (e.g., Div2C, Easy, Hard): "
+    read DIFFICULTY
+    if [[ -z "$DIFFICULTY" ]]; then
+        echo "Error: Difficulty level is required!"
+        continue
+    else
+        break
+    fi
+done
+
+# Get takeaway (optional)
+echo -n "Enter key takeaway/learning (optional, press Enter to skip): "
+read TAKEAWAY
+
+# Get revisit note (optional)
+echo -n "Enter revisit note/error log (optional, press Enter to skip): "
+read REVISIT
+
+echo ""
+echo "Summary:"
+echo "URL: $LINK"
+echo "Tag: $TAG"
+echo "Difficulty: $DIFFICULTY"
+echo "Takeaway: ${TAKEAWAY:-"(none)"}"
+echo "Revisit: ${REVISIT:-"(none)"}"
+echo ""
+
+# Confirm before proceeding
+while true; do
+    echo -n "Add this problem to the repository? (y/n): "
+    read CONFIRM
+    case $CONFIRM in
+        [Yy]* ) break;;
+        [Nn]* ) echo "Operation cancelled."; exit 0;;
+        * ) echo "Please answer y or n.";;
+    esac
+done
 
 # Path to the solution file (fixed)
 FILE="/home/mohimenul/Educational-Problems/solution.cpp"
+
+echo ""
+echo "Processing..."
 
 #=================================================
 # DO NOT EDIT BELOW THIS LINE
