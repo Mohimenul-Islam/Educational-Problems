@@ -2,45 +2,66 @@
 
 # Script to add a new problem to the Educational-Problems repository
 # By: Mohimenul
+#
+# Usage: ./add_problem.sh <link> <tag> <difficulty> [takeaway] [revisit]
+# 
+# Parameters:
+#   link       - URL to the problem (required)
+#   tag        - Category/tag of the problem (required)
+#   difficulty - Difficulty level (required)
+#   takeaway   - Key learning or takeaway (optional)
+#   revisit    - Revisit note or error log (optional)
+#
+# Example:
+#   ./add_problem.sh "https://codeforces.com/contest/123/problem/A" "Greedy" "Div2C" "Use sorting for optimization" "Remember edge case with n=1"
 
 #=================================================
-# EDIT THESE PARAMETERS BEFORE RUNNING THE SCRIPT
+# PARSE COMMAND LINE ARGUMENTS
 #=================================================
 
-# Path to the solution file (required)
-FILE="/home/mohimenul/educational/Educational-Problems/solution.cpp"
-  # Example: "/home/educational/Educational-Problems/solution.cpp" or "./solution.cpp"
+# Function to display usage
+show_usage() {
+    echo "Usage: $0 <link> <tag> <difficulty> [takeaway] [revisit]"
+    echo ""
+    echo "Parameters:"
+    echo "  link       - URL to the problem (required)"
+    echo "  tag        - Category/tag of the problem (required)"
+    echo "  difficulty - Difficulty level (required)"
+    echo "  takeaway   - Key learning or takeaway (optional)"
+    echo "  revisit    - Revisit note or error log (optional)"
+    echo ""
+    echo "Example:"
+    echo "  $0 \"https://codeforces.com/contest/123/problem/A\" \"Greedy\" \"Div2C\" \"Use sorting for optimization\" \"Remember edge case with n=1\""
+    echo ""
+    echo "Note: Use quotes around parameters that contain spaces"
+}
 
-# Problem link (required)
-LINK="https://atcoder.jp/contests/arc092/tasks/arc092_a"  # Example: "https://codeforces.com/problemset/problem/123/A"
+# Check if at least 3 arguments are provided
+if [ $# -lt 3 ]; then
+    echo "Error: Missing required parameters"
+    echo ""
+    show_usage
+    exit 1
+fi
 
-# Problem category/tag (required)
-TAG="adhoc"   # Example: "Greedy" or "Dynamic Programming"
+# Assign command line arguments to variables
+LINK="$1"
+TAG="$2"
+DIFFICULTY="$3"
+TAKEAWAY="${4:-}"  # Optional, empty string if not provided
+REVISIT="${5:-}"   # Optional, empty string if not provided
 
-# Difficulty level (e.g., Easy, Medium, Hard) (required)
-DIFFICULTY="Div2C-ish"  # Example: "Medium"
-
-# Key takeaway or learning (optional)
-TAKEAWAY="In set<int, greater<int>>, the upper bound and lower bound functions act reverse. For example, lower bound returns the largest element less that or equal"    # Example: "Use priority queue for optimization"
-
-# Note for revisiting (optional)
-REVISIT="recall the sorting based on x and left to right sweep with set maintainances"     # Example: "Review time complexity"
+# Path to the solution file (fixed)
+FILE="/home/mohimenul/Educational-Problems/solution.cpp"
 
 #=================================================
 # DO NOT EDIT BELOW THIS LINE
 #=================================================
 
-# Validate required parameters
-if [[ -z "$FILE" || -z "$LINK" || -z "$TAG" || -z "$DIFFICULTY" ]]; then
-    echo "Error: Missing required parameters"
-    echo "Please edit the script and fill in the required parameters at the top of the file."
-    echo "FILE, LINK, TAG, and DIFFICULTY are required. TAKEAWAY and REVISIT are optional."
-    exit 1
-fi
-
-# Check if file exists
+# Validate that the solution file exists
 if [[ ! -f "$FILE" ]]; then
     echo "Error: File '$FILE' not found"
+    echo "Make sure you have solved the problem in solution.cpp first!"
     exit 1
 fi
 
