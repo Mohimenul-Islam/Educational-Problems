@@ -2,59 +2,83 @@
 using namespace std;
 using ll = long long;
 
-const int N = 8e3 + 10;
+const int N = 2e5 + 10, MOD = 1e9 + 7;
 
-vector <int> vx, vy;
-string s;
-int n, sz, sz2, x, y;
-bool dp[N][N + N], dp2[N][N + N], vis[N][N + N], vis2[N][N + N];
+struct P {
+	ll x, y;
+	void read() {
+		cin >> x >> y;
+	}
+	P operator -(const P& b) const {
+		return P{x - b.x, y - b.y};
+	}
+	void operator -=(const P& b) {
+		x -= b.x;
+		y -= b.y;
+	}
+	ll operator *(const P& b) const {
+		return 1LL * x * b.y - 1LL * y * b.x;
+	}
+	ll triangle (const P& a, P& b) {
+		return (a - *this) * (b - *this);
+	}
+};
 
-bool f(int i, int sum) {
-  if (i == sz) return (sum == N + x);
-  bool &ret = dp[i][sum];
-  if (vis[i][sum]) return ret;
-  vis[i][sum] = true;
-  if (!i and s[0] == 'F') ret = f(i + 1, sum + vx[i]);
-  else ret = (f(i + 1, sum + vx[i]) or f(i + 1, sum - vx[i]));
-  return ret;
+bool contains_segemnt(P p1, P p2, P p3) {
+	if (p1.triangle(p2, p3) != 0) return false;
+	return min(p2.x, p3.x) <= p1.x and p1.x <= max(p2.x, p3.x) 
+	  and min(p2.y, p3.y) <= p1.y and p1.y <= max(p2.y, p3.y);
 }
 
-bool f2(int i, int sum) {
-  if (i == sz2) return (sum == N + y);
-  bool &ret = dp2[i][sum];
-  if (vis2[i][sum]) return ret;
-  vis2[i][sum] = true;
-  ret = (f2(i + 1, sum + vy[i]) or f2(i + 1, sum - vy[i]));
-  return ret;
+bool is_intesect(P p1, P p2, P p3, P p4) {
+	if ((p2 - p1) * (p3 - p4) == 0) {
+		if (p1.triangle(p2, p3) != 0) return false;
+		bool fl = false;
+		int mnx = min(p1.x, p2.x), mxx = max(p1.x, p2.x), mny = min(p1.y, p2.y), mxy = max(p1.y, p2.y);
+		int mnx2 = min(p3.x, p4.x), mxx2 = max(p3.x, p4.x), mny2 = min(p3.y, p4.y), mxy2 = max(p3.y, p4.y);
+		return (max(mnx, mnx2) <= min(mxx, mxx2) && max(mny, mny2) <= min(mxy, mxy2));
+	}
+
+	ll sign1 = p1.triangle(p2, p3), sign2 = p1.triangle(p2, p4);
+	if ((sign1 < 0 and sign2 < 0) or (sign1 > 0 and sign2 > 0)) return false;
+	sign1 = p4.triangle(p3, p1), sign2 = p4.triangle(p3, p2);
+	if ((sign1 < 0 and sign2 < 0) or (sign1 > 0 and sign2 > 0)) return false;
+	return true;
 }
 
 void solve() {
-  cin >> s;
-  n = s.size();
-  cin >> x >> y;
-
-  int len = 0, fl = 1;
-  for (int i = 0; i < n; ++i) {
-    if (s[i] == 'F') ++len;
-    if (s[i] == 'T' or i == n - 1) {
-      if (fl) vx.push_back(len);
-      else vy.push_back(len);
-      fl ^= 1;
-      len = 0;
-    }
-  }
-  sz = vx.size(), sz2 = vy.size();
-  bool fl2 = (f(0, N) and f2(0, N));
-  cout << (fl2? "Yes\n" : "No\n");
+	int n, q;
+	cin >> n >> q;
+	P arr[n];
+	for (int i = 0; i < n; ++i) arr[i].read();
+	while (q--) {
+		P point, out;
+		point.read();
+		out = {point.x + 1, 3000000001};
+		int cnt = 0;
+		bool fl = false;
+		for (int i = 0; i < n; ++i) {
+			int j = (i + 1 == n? 0 : i + 1);
+			if (contains_segemnt(point, arr[i], arr[j])) {
+				fl = true;
+				break;
+			}
+			cnt += is_intesect(point, out, arr[i], arr[j]);
+		}
+		if (fl) {
+			cout << "BOUNDARY\n";
+		} else if (cnt & 1) {
+			cout << "INSIDE\n";
+		} else cout << "OUTSIDE\n";
+	}
 }
 
 int main() {
-  ios::sync_with_stdio(0);
-  cin.tie(0);
+  ios::sync_with_stdio(false);
+  cin.tie(nullptr);
 
-  int tt = 1; 
-  //cin >> tt; 
-  while (tt--) {
-    solve();
-  }
+  int t = 1; 
+  // cin >> t;
+  while (t--)
+  solve();
 }

@@ -6,25 +6,28 @@ This document explains how to work with this repository effectively.
 
 1. **Solve the problem** in `solution.cpp` file in the root directory.
 
-2. **Run the script** with problem details:
+2. **Run the script** and follow the interactive prompts:
    ```bash
-   ./add_problem.sh "https://problem-link-here.com" "Your Tag" "Difficulty" ["Optional takeaway"] ["Optional revisit note"]
+   ./add_problem.sh
    ```
    
-   **Parameters:**
-   - `link` - URL to the problem (required)
-   - `tag` - Category/tag like "Greedy", "DP", "Graph" (required)
-   - `difficulty` - Difficulty level like "Div2C", "Easy", "Hard" (required)
-   - `takeaway` - Key learning or insight (optional)
-   - `revisit` - Future review note or error log (optional)
-
-   **Examples:**
-   ```bash
-   # Minimum required parameters
-   ./add_problem.sh "https://codeforces.com/contest/123/problem/A" "Greedy" "Div2C"
+   The script will ask you for:
+   - **Problem URL** (required) - Link to the problem
+   - **Category/Tag** (required) - Like "Greedy", "DP", "Graph", etc.
+   - **Difficulty** (required) - Like "Div2C", "Easy", "Hard", etc.
+   - **Takeaway** (optional) - Key learning or insight
+   - **Revisit Note** (optional) - Future review note or error log
    
-   # With optional takeaway and revisit note
-   ./add_problem.sh "https://atcoder.jp/contests/abc123/tasks/abc123_d" "Dynamic Programming" "Div2D" "Use 2D DP for optimization" "Remember the base case when n=1"
+   After entering all details, it will show a summary and ask for confirmation.
+
+   **Example session:**
+   ```
+   Enter problem URL: https://codeforces.com/contest/123/problem/A
+   Enter problem category/tag: Greedy
+   Enter difficulty level: Div2C
+   Enter key takeaway/learning (optional): Use sorting for optimization
+   Enter revisit note/error log (optional): Remember edge case with n=1
+   Add this problem to the repository? (y/n): y
    ```
 
 ## What the Script Does
@@ -45,8 +48,10 @@ This document explains how to work with this repository effectively.
 ## Tips
 
 - Always work in the `solution.cpp` file in the root directory
-- Use quotes around parameters that contain spaces
+- The script provides guided prompts - just run `./add_problem.sh` and follow along
+- URL validation ensures you enter a proper web link
+- Optional fields can be skipped by pressing Enter
+- Review the summary before confirming to avoid mistakes
 - The script will handle file numbering automatically
-- The script now automatically pulls the latest changes before committing to avoid conflicts
+- The script automatically pulls the latest changes before committing to avoid conflicts
 - Git credentials are stored to avoid entering username/password repeatedly
-- To see usage help: `./add_problem.sh` (without parameters)
