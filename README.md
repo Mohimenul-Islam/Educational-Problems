@@ -13,3 +13,25 @@ A collection of competitive programming problems I’ve solved, along with any n
 <!-- PROBLEMS_TABLE_CONTENT -->
 
 **Note:** Click on "View" in the Takeaway or Revisit Note columns to expand the content.
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Get all details elements in the table
+    const allDetails = document.querySelectorAll('table details');
+    
+    // Add event listener to each details element
+    allDetails.forEach(function(details) {
+        details.addEventListener('toggle', function() {
+            // If this details element is being opened
+            if (this.open) {
+                // Close all other details elements
+                allDetails.forEach(function(otherDetails) {
+                    if (otherDetails !== details && otherDetails.open) {
+                        otherDetails.open = false;
+                    }
+                });
+            }
+        });
+    });
+});
+</script>
