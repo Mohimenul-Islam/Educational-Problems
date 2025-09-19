@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Problem - Educational Problems</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        .form-container {
+            padding: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 1rem;
+        }
+
+        .required {
+            color: #e74c3c;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e8ed;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, monospace;
+            line-height: 1.5;
+        }
+
+        .form-help {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+
+        .btn-container {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #6c757d;
+            border: 2px solid #e1e8ed;
+        }
+
+        .btn-secondary:hover {
+            background: #e9ecef;
+            border-color: #adb5bd;
+        }
+
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .preview {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+            display: none;
+        }
+
+        .preview h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .preview-item {
+            margin-bottom: 10px;
+        }
+
+        .preview-label {
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .preview-value {
+            color: #6c757d;
+            margin-left: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 8px;
+            }
+            
+            .form-container {
+                padding: 20px;
+            }
+            
+            .btn-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 Add New Problem</h1>
+            <p>Educational Problems Repository</p>
+        </div>
+        
+        <div class="form-container">
+            <form id="problemForm">
+                <div class="form-group">
+                    <label for="url">Problem URL <span class="required">*</span></label>
+                    <input type="url" id="url" name="url" required placeholder="https://codeforces.com/contest/123/problem/A">
+                    <div class="form-help">Enter the full URL to the problem</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="tag">Category/Tag <span class="required">*</span></label>
+                    <input type="text" id="tag" name="tag" required placeholder="e.g., Greedy, Dynamic Programming, Graph">
+                    <div class="form-help">What type of problem is this?</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="difficulty">Difficulty <span class="required">*</span></label>
+                    <input type="text" id="difficulty" name="difficulty" required placeholder="e.g., Div2C, Easy, Medium, Hard">
+                    <div class="form-help">How difficult is this problem?</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="takeaway">Key Takeaway/Learning</label>
+                    <textarea id="takeaway" name="takeaway" placeholder="What did you learn from this problem? Key insights, algorithms, or techniques used..."></textarea>
+                    <div class="form-help">Optional: Describe what you learned or key insights from solving this problem</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="revisit">Revisit Note/Error Log</label>
+                    <textarea id="revisit" name="revisit" placeholder="Notes for future review, common mistakes to avoid, or debugging insights..."></textarea>
+                    <div class="form-help">Optional: Notes for future reference, common pitfalls, or things to remember</div>
+                </div>
+
+                <div class="btn-container">
+                    <button type="button" class="btn btn-secondary" onclick="previewProblem()">Preview</button>
+                    <button type="submit" class="btn btn-primary">Add Problem</button>
+                </div>
+            </form>
+
+            <div id="preview" class="preview">
+                <h3>📋 Problem Preview</h3>
+                <div id="previewContent"></div>
+            </div>
+
+            <div id="status" class="status"></div>
+        </div>
+    </div>
+
+    <script>
+        function previewProblem() {
+            const form = document.getElementById('problemForm');
+            const formData = new FormData(form);
+            const preview = document.getElementById('preview');
+            const previewContent = document.getElementById('previewContent');
+            
+            const url = formData.get('url') || '(not provided)';
+            const tag = formData.get('tag') || '(not provided)';
+            const difficulty = formData.get('difficulty') || '(not provided)';
+            const takeaway = formData.get('takeaway') || '(none)';
+            const revisit = formData.get('revisit') || '(none)';
+            
+            previewContent.innerHTML = `
+                <div class="preview-item">
+                    <span class="preview-label">URL:</span>
+                    <span class="preview-value">${url}</span>
+                </div>
+                <div class="preview-item">
+                    <span class="preview-label">Category:</span>
+                    <span class="preview-value">${tag}</span>
+                </div>
+                <div class="preview-item">
+                    <span class="preview-label">Difficulty:</span>
+                    <span class="preview-value">${difficulty}</span>
+                </div>
+                <div class="preview-item">
+                    <span class="preview-label">Takeaway:</span>
+                    <span class="preview-value">${takeaway}</span>
+                </div>
+                <div class="preview-item">
+                    <span class="preview-label">Revisit Note:</span>
+                    <span class="preview-value">${revisit}</span>
+                </div>
+            `;
+            
+            preview.style.display = 'block';
+            preview.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showStatus(message, type) {
+            const status = document.getElementById('status');
+            status.textContent = message;
+            status.className = `status ${type}`;
+            status.style.display = 'block';
+            status.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        document.getElementById('problemForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const data = {
+                url: formData.get('url'),
+                tag: formData.get('tag'),
+                difficulty: formData.get('difficulty'),
+                takeaway: formData.get('takeaway'),
+                revisit: formData.get('revisit')
+            };
+            
+            try {
+                showStatus('Processing... Adding problem to repository', 'success');
+                
+                const response = await fetch('/api/add-problem', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showStatus(`✅ Success! Problem added as solution${result.problemNumber}.cpp and pushed to GitHub!`, 'success');
+                    this.reset();
+                    document.getElementById('preview').style.display = 'none';
+                } else {
+                    showStatus(`❌ Error: ${result.error}`, 'error');
+                }
+            } catch (error) {
+                showStatus(`❌ Error: ${error.message}`, 'error');
+            }
+        });
+    </script>
+</body>
+</html>
