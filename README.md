@@ -18,6 +18,7 @@ A collection of competitive programming problems I’ve solved, along with any n
 | 10 | [Link](https://codeforces.com/contest/2148/problem/G) | Number Theory | Div4G | <details><summary>View</summary>-Avoid unnecessary usage of sets if it can be handled with arrays with a few extra lines of code, specially when the complexity is tight-bound.</details> | <details><summary>View</summary>-Recall the next vector maintenance for previous state's answer</details> | [Solution](./codes/solution10.cpp) |
 | 11 | [Link](https://codeforces.com/contest/2152/problem/D) | Bitmask, Game Theory, Adhoc | Div2D |  | <details><summary>View</summary>Recall how the (2^k + 1) form numbers matter the most and how we will eventually get a (2^k + 1) form number from numbers those are not in the form 2^k initially.</details> | [Solution](./codes/solution11.cpp) |
 | 12 | [Link](https://codeforces.com/contest/2134/problem/D) | Tree Diameter, Adhoc | Div2D | <details><summary>View</summary>The diameter path can easily be stored using a parent array.</details> | <details><summary>View</summary>I was coding to find the last discovered node instead of the furthest node to find diameter.</details> | [Solution](./codes/solution12.cpp) |
+| 13 | [Link](https://codeforces.com/contest/161/problem/D) | DP on Tree | Div2D |  | <details><summary>View</summary>Recall how rerooting was unnecessary in this problem.</details> | [Solution](./codes/solution13.cpp) |
 <!-- PROBLEMS_TABLE_CONTENT -->
 
 **Note:** Click on "View" in the Takeaway or Revisit Note columns to expand the content.
