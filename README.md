@@ -20,6 +20,7 @@ A collection of competitive programming problems I’ve solved, along with any n
 | 12 | [Link](https://codeforces.com/contest/2134/problem/D) | Tree Diameter, Adhoc | Div2D | <details><summary>View</summary>The diameter path can easily be stored using a parent array.</details> | <details><summary>View</summary>I was coding to find the last discovered node instead of the furthest node to find diameter.</details> | [Solution](./codes/solution12.cpp) |
 | 13 | [Link](https://codeforces.com/contest/161/problem/D) | DP on Tree | Div2D |  | <details><summary>View</summary>Recall how rerooting was unnecessary in this problem.</details> | [Solution](./codes/solution13.cpp) |
 | 14 | [Link](https://toph.co/c/preliminary-8th-drmc-intl-tech-carnival-2025) | DP on Tree / Centroid Decomposition | DIV2D/E |  | <details><summary>View</summary>didn't clear the global answer variables and missed the 0 state calculation</details> | [Solution](./codes/solution14.cpp) |
+| 15 | [Link](https://cses.fi/alon/task/1753) | KMP | Div2D | <details><summary>View</summary>If you ever forget KMP, remember this intuition:&lt;br&gt;&lt;br&gt;“When a mismatch happens, how much of the pattern have we already matched that can be reused as a prefix?” &lt;br&gt;&lt;br&gt;That’s exactly what pi function tells you.</details> |  | [Solution](./codes/solution15.cpp) |
 <!-- PROBLEMS_TABLE_CONTENT -->
 
 **Note:** Click on "View" in the Takeaway or Revisit Note columns to expand the content.
