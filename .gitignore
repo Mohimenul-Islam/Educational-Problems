@@ -5,7 +5,10 @@ TECHNICAL_GUIDE.md
 STUDY_GUIDE.md
 ARCHITECTURE.md
 LOCAL_FILES_NOTE.md
+BUG_FIX_BR_TAGS.md
+
+# Internal documentation (AI context, personal notes)
+CONTEXT.md
 
 # These are personal study materials and shouldn't be in public repo
 # They're for your interview preparation, not part of the project showcase
-BUG_FIX_BR_TAGS.md
