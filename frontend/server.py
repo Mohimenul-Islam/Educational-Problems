@@ -186,15 +186,17 @@ class ProblemHandler(BaseHTTPRequestHandler):
         # Remove extra whitespace and normalize newlines
         text = text.strip()
         
-        # Replace newlines with <br> tags for HTML display within markdown
+        # Escape HTML characters FIRST (before adding our <br> tags)
+        # This prevents user input from breaking the HTML
+        text = text.replace('&', '&amp;')  # Must be first!
+        text = text.replace('<', '&lt;').replace('>', '&gt;')
+        
+        # NOW replace newlines with <br> tags (these won't be escaped)
         text = text.replace('\n\n', '<br><br>')  # Double newlines become double breaks
         text = text.replace('\n', '<br>')        # Single newlines become single breaks
         
         # Escape pipe characters that would break markdown table
         text = text.replace('|', '&#124;')
-        
-        # Escape other problematic characters
-        text = text.replace('<', '&lt;').replace('>', '&gt;')
         
         return text
     
